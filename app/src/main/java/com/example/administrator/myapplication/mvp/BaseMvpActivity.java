@@ -2,13 +2,14 @@ package com.example.administrator.myapplication.mvp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * @author： 董海峰
  * @created: 2018-07-24
  * @description MVP基础Activity
  */
-public abstract class BaseMvpActivity<V,T extends BasePresenter<V>> extends Activity {
+public abstract class BaseMvpActivity<V,T extends BasePresenter<V>> extends AppCompatActivity {
 
     protected T mPresenter;
 

@@ -1,8 +1,5 @@
 package com.example.administrator.myapplication;
-
 import android.os.Bundle;
-import android.util.Log;
-
 import com.example.administrator.myapplication.mvp.BaseMvpActivity;
 import com.example.administrator.myapplication.mvp.BasePresenter;
 
@@ -11,21 +8,25 @@ import com.example.administrator.myapplication.mvp.BasePresenter;
  */
 public class MainActivity extends BaseMvpActivity {
 
-    private Presenter myPresenter;
-
+    private CustomPresenter myPresenter;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myPresenter = ((Presenter) mPresenter);
 
-        myPresenter.out();
+        myPresenter = (CustomPresenter) mPresenter;
+
+        //如果使用LifecycleObserver
+        getLifecycle().addObserver(myPresenter);
 
 
     }
+
 
     @Override
     protected BasePresenter createPresenter() {
-        return new Presenter();
+        return new CustomPresenter();
     }
+
 }

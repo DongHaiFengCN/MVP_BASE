@@ -1,5 +1,7 @@
 package com.example.administrator.myapplication.mvp;
 
+import android.arch.lifecycle.LifecycleObserver;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -8,7 +10,7 @@ import java.lang.ref.WeakReference;
  * @created: 2018-07-24
  * @description：
  */
-public abstract class BasePresenter<T> {
+public  class BasePresenter<T> implements LifecycleObserver {
 
     /**
      * 接口类型的弱引用
