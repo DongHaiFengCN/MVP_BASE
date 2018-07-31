@@ -1,4 +1,4 @@
-package com.example.administrator.myapplication.mvp;
+package com.example.mvplib.mvp;
 
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
@@ -6,6 +6,7 @@ import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.OnLifecycleEvent;
 
 import org.jetbrains.annotations.NotNull;
+
 
 /**
  * @author： Administrator

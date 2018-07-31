@@ -1,6 +1,5 @@
-package com.example.administrator.myapplication.mvp;
+package com.example.mvplib.mvp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,16 +8,20 @@ import android.support.v7.app.AppCompatActivity;
  * @created: 2018-07-24
  * @description MVP基础Activity
  */
-public abstract class BaseMvpActivity<V,T extends BasePresenter<V>> extends AppCompatActivity {
+public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends AppCompatActivity {
 
-    protected T mPresenter;
+    protected BasePresenter mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = createPresenter();
-        mPresenter.attachView((V)this);
+        if (mPresenter == null) {
+             throw new RuntimeException("没有初始化当前activity的present对象！");
         }
+        mPresenter.attachView((V)this);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -28,6 +31,7 @@ public abstract class BaseMvpActivity<V,T extends BasePresenter<V>> extends AppC
 
     /**
      * 返回具体的业务 presenter,完成绑定视图等操作
+     *
      * @return 具体视图
      */
     protected abstract T createPresenter();

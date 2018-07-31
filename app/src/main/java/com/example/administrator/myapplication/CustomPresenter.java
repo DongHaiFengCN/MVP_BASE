@@ -3,9 +3,8 @@ package com.example.administrator.myapplication;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.util.Log;
-
-import com.example.administrator.myapplication.mvp.BasePresenter;
-import com.example.administrator.myapplication.mvp.IPresenter;
+import com.example.mvplib.mvp.BasePresenter;
+import com.example.mvplib.mvp.IPresenter;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -17,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 class CustomPresenter extends BasePresenter implements IPresenter {
 
     public void out(){
+        Log.e("DOAING","hello!");
         
     }
 
