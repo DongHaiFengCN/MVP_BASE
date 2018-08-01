@@ -2,7 +2,7 @@ package com.example.administrator.myapplication;
 
 import android.util.Log;
 
-import com.example.mvplib.application.BaseApplication;
+import com.yh.ydd.base.application.BaseApplication;
 
 public class MyApplication extends BaseApplication {
 

@@ -1,4 +1,4 @@
-package com.example.mvplib.mvp;
+package com.yh.ydd.base.config;
 
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @created: 2018-07-27
  * @description：
  */
-public interface IPresenter extends LifecycleObserver {
+public interface ILifecyclePresenter extends LifecycleObserver {
 
     /**
      *  初始化周期

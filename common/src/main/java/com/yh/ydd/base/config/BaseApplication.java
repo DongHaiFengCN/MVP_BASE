@@ -1,4 +1,4 @@
-package com.example.mvplib.application;
+package com.yh.ydd.base.config;
 
 import android.app.Application;
 import android.util.Log;

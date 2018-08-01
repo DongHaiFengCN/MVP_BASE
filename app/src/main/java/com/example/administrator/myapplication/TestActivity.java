@@ -2,14 +2,13 @@ package com.example.administrator.myapplication;
 
 import android.os.Bundle;
 
-import com.example.mvplib.mvp.BaseMvpActivity;
-import com.example.mvplib.mvp.BasePresenter;
+import com.yh.ydd.base.config.BaseMvpActivity;
+import com.yh.ydd.base.config.BasePresenter;
 
 /**
  * @author Administrator
  */
-public class MainActivity extends BaseMvpActivity {
-
+public class TestActivity extends BaseMvpActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
