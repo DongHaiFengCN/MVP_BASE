@@ -2,7 +2,8 @@ package com.example.administrator.myapplication;
 
 import android.util.Log;
 
-import com.yh.ydd.base.application.BaseApplication;
+import com.yh.ydd.base.config.BaseApplication;
+
 
 public class MyApplication extends BaseApplication {
 
@@ -10,6 +11,9 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
 
-        Log.e("DOAING","MyApplication");
+        Log.e("DOAING", "MyApplication");
     }
+
+
+
 }

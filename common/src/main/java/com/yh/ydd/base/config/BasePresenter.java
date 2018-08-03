@@ -1,5 +1,7 @@
 package com.yh.ydd.base.config;
 
+import android.app.Activity;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -26,11 +28,14 @@ public  class BasePresenter<T> {
     }
 
     /**
-     * @return 是否绑定视图
+     *
+     * @return 获取基础的application
      */
-    public boolean isViewAttached() {
+    protected BaseApplication getBaseApplication(){
 
-        return mViewRef != null && mViewRef.get() != null;
+        Activity activity = (Activity) mViewRef.get();
+
+        return (BaseApplication) activity.getApplication();
     }
 
     public void detachView() {

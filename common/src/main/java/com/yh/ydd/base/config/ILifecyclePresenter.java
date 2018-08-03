@@ -17,17 +17,15 @@ public interface ILifecyclePresenter extends LifecycleObserver {
 
     /**
      *  初始化周期
-     * @param owner
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void onCreate(@NotNull LifecycleOwner owner);
+    void onCreate();
 
     /**
      * 销毁周期
-     * @param owner
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    void onDestroy(@NotNull LifecycleOwner owner);
+    void onDestroy();
 
     /**
      * 周期变化
