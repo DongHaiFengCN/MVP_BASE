@@ -1,7 +1,11 @@
 package com.example.login;
 
+import android.Manifest;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.couchbase.lite.Document;
@@ -22,30 +26,10 @@ public class LoginPresenter extends BasePresenter implements ILifecyclePresenter
 
     public void submit(String name, String age) {
 
-        MutableDocument mutableDoc = new MutableDocument();
-        mutableDoc.setString("name", name)
-                .setString("age", age);
+        Log.e("DOAING",name+age);
 
-        currentDatabaseUtils.save(mutableDoc);
-        currentDatabaseUtils.startReplication();
+        currentDatabaseUtils.save(new MutableDocument());
 
-        currentDatabaseUtils.openReplicatorChangeListener(new MyReplicatorChangeListener() {
-            @Override
-            public void changed(Object change) {
-
-                ReplicatorChange replicatorChange = (ReplicatorChange) change;
-                Log.e("DOAING",  replicatorChange.getStatus().toString());
-
-            }
-
-
-        });
-
-
-        Document document = (Document) currentDatabaseUtils.selectById(mutableDoc.getId());
-
-        Log.e("DOAING", document.getString("name"));
-        Log.e("DOAING", document.getString("age"));
     }
 
     /**
@@ -54,11 +38,20 @@ public class LoginPresenter extends BasePresenter implements ILifecyclePresenter
     @Override
     public void onCreate() {
 
+
+
+
         //这里开启并注册指定的数据库，例如couchebase，如果已经开启就直接返回当前数据库的操作工具。
         currentDatabaseUtils = getBaseApplication().getCurrentDatabase(CoucheBaseInstant.class);
 
         Objects.requireNonNull(currentDatabaseUtils, "数据库操作对象不能为空!!!");
-
+        currentDatabaseUtils.startReplication().openReplicatorChangeListener(new MyReplicatorChangeListener() {
+            @Override
+            public void changed(Object change) {
+                ReplicatorChange replicatorChange = (ReplicatorChange) change;
+                Log.e("DOAING",  "同步信息："+replicatorChange.getStatus().toString());
+            }
+        });
     }
 
     @Override

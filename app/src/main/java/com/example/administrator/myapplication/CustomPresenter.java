@@ -21,15 +21,14 @@ class CustomPresenter extends BasePresenter implements ILifecyclePresenter {
 
     }
 
-
     @Override
-    public void onCreate(@NotNull LifecycleOwner owner) {
-        Log.e("DOAING","onCreate!");
+    public void onCreate() {
+
     }
 
     @Override
-    public void onDestroy(@NotNull LifecycleOwner owner) {
-        Log.e("DOAING","onDestroy!");
+    public void onDestroy() {
+
     }
 
     @Override

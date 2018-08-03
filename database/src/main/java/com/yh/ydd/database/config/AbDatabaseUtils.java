@@ -2,9 +2,7 @@ package com.yh.ydd.database.config;
 
 import android.support.annotation.NonNull;
 
-import com.couchbase.lite.Database;
-
-import java.util.Objects;
+import com.yh.ydd.database.factory.couchebase.CoucheBaseUtils;
 
 public abstract class AbDatabaseUtils {
     public abstract <T> void save(@NonNull T t);
@@ -15,6 +13,8 @@ public abstract class AbDatabaseUtils {
     /**
      * 开启同步服务
      */
-    public abstract void startReplication();
+    public abstract CoucheBaseUtils startReplication();
+
+    public abstract void closeDatabase();
 
 }

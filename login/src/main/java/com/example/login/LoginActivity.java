@@ -1,8 +1,12 @@
 package com.example.login;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import com.yh.ydd.base.config.BaseMvpActivity;
 import com.yh.ydd.base.config.BasePresenter;
@@ -19,6 +23,14 @@ public class LoginActivity extends BaseMvpActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        }
+
+        
+
+
+
         loginPresenter = (LoginPresenter) mPresenter;
 
         getLifecycle().addObserver(loginPresenter);
@@ -30,6 +42,7 @@ public class LoginActivity extends BaseMvpActivity {
 
                 PrintManager.getInstance().startPrintService(getApplicationContext());
 
+
             }
         });
         findViewById(R.id.bt_close).setOnClickListener(new View.OnClickListener() {
@@ -38,6 +51,7 @@ public class LoginActivity extends BaseMvpActivity {
 
 
                 PrintManager.getInstance().stopPrintService(getApplicationContext());
+
 
             }
         });

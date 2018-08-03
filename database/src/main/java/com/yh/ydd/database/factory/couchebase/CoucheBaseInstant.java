@@ -1,6 +1,7 @@
 package com.yh.ydd.database.factory.couchebase;
 
 import android.content.Context;
+import android.os.Environment;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -14,6 +15,7 @@ import com.couchbase.lite.URLEndpoint;
 import com.yh.ydd.database.config.AbDataBase;
 import com.yh.ydd.database.config.AbDatabaseUtils;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -21,6 +23,8 @@ import java.net.URISyntaxException;
  * 初始化couchebase 数据库实例
  */
 public class CoucheBaseInstant extends AbDataBase {
+
+
     private Database database = null;
 
 
@@ -33,8 +37,17 @@ public class CoucheBaseInstant extends AbDataBase {
     public void initDataBase(Context context) {
 
         DatabaseConfiguration config = new DatabaseConfiguration(context);
+
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+
+            File file = new File(String.format("%s/kitchen",Environment.getExternalStorageDirectory()));
+
+            config.setDirectory(file.getAbsolutePath());
+        }
         try {
-             database = new Database("mydb", config);
+
+             database = new Database("kitchendb", config);
+
 
         } catch (CouchbaseLiteException e) {
             e.printStackTrace();
