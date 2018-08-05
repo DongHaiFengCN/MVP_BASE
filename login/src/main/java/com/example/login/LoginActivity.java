@@ -23,12 +23,6 @@ public class LoginActivity extends BaseMvpActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-        }
-
-        
-
 
 
         loginPresenter = (LoginPresenter) mPresenter;
@@ -70,7 +64,13 @@ public class LoginActivity extends BaseMvpActivity {
                 loginPresenter.submit("董海峰","222");
             }
         });
+        findViewById(R.id.bt_http).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                loginPresenter.httpTest();
+            }
+        });
 
     }
 

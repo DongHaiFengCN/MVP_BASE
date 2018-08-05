@@ -16,6 +16,7 @@ import com.couchbase.lite.URLEndpoint;
 import com.couchbase.lite.internal.support.Log;
 import com.yh.ydd.database.config.AbDatabaseUtils;
 import com.yh.ydd.database.config.MyReplicatorChangeListener;
+import com.yh.ydd.database.config.DatabaseURLCollector;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,7 +27,10 @@ import static android.content.ContentValues.TAG;
 
 public class CoucheBaseUtils extends AbDatabaseUtils {
 
-    private String url ="ws://123.207.174.171:4984/kitchen/";
+
+    private URI uri;
+
+    private Replicator replication;
 
     private static CoucheBaseUtils coucheBaseUtils;
 
@@ -74,37 +78,42 @@ public class CoucheBaseUtils extends AbDatabaseUtils {
     }
 
     @Override
-    public CoucheBaseUtils startReplication() {
+    public CoucheBaseUtils startReplication(String cl,String psw) {
 
-        URI uri = null;
-        try {
-            uri = new URI(url);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        Endpoint endpoint = new URLEndpoint(uri);
 
-        ReplicatorConfiguration config = new ReplicatorConfiguration(database, endpoint);
-        List<String> channels = new ArrayList<>();
+        if (uri == null) {
 
-        channels.add("b8b2f10e");
+            try {
+                uri = new URI(DatabaseURLCollector.COUCHEBASAURL);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            Endpoint endpoint = new URLEndpoint(uri);
 
-        config.setReplicatorType(ReplicatorConfiguration.ReplicatorType.PUSH_AND_PULL);
+            ReplicatorConfiguration config = new ReplicatorConfiguration(database, endpoint);
 
-        config.setAuthenticator(new BasicAuthenticator("b8b2f10e","123456"));
+            List<String> channel = new ArrayList<>();
 
-        Replicator replication = new Replicator(config);
-        replication.addChangeListener(new ReplicatorChangeListener() {
-            @Override
-            public void changed(ReplicatorChange change) {
+            channel.add(cl);
 
-                CouchbaseLiteException error = change.getStatus().getError();
-                if (error != null)
-                    com.couchbase.lite.internal.support.Log.w(TAG, "Error code:: %d", error.getCode());
+            config.setChannels(channel);
 
-                     myReplicatorChangeListener.changed(change);
+            config.setReplicatorType(ReplicatorConfiguration.ReplicatorType.PUSH_AND_PULL);
+
+            config.setAuthenticator(new BasicAuthenticator(cl, psw));
+
+            replication = new Replicator(config);
+            replication.addChangeListener(new ReplicatorChangeListener() {
+                @Override
+                public void changed(ReplicatorChange change) {
+
+                    myReplicatorChangeListener.changed(change);
+
+
                 }
-        });
+            });
+        }
+
         replication.start();
 
         return coucheBaseUtils;
@@ -122,17 +131,15 @@ public class CoucheBaseUtils extends AbDatabaseUtils {
     }
 
 
-    public static CoucheBaseUtils getInstant(Database database){
+    public static CoucheBaseUtils getInstant(Database database) {
 
-        if(coucheBaseUtils == null){
+        if (coucheBaseUtils == null) {
 
             coucheBaseUtils = new CoucheBaseUtils(database);
         }
 
         return coucheBaseUtils;
     }
-
-
 
 
 }

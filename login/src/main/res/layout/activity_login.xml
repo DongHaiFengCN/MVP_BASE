@@ -32,5 +32,10 @@
         android:layout_height="wrap_content"
         android:text="数据库测试"
         />
-
+    <Button
+        android:id="@+id/bt_http"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="网络测试"
+        />
 </LinearLayout>
