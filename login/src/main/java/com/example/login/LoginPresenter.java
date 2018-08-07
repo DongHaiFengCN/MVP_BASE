@@ -1,7 +1,9 @@
 package com.example.login;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
@@ -28,41 +30,39 @@ import retrofit2.Retrofit;
 public class LoginPresenter extends BasePresenter implements ILifecyclePresenter {
     private AbDatabaseUtils currentDatabaseUtils;
 
-
     public void submit(String name, String age) {
 
-
         currentDatabaseUtils.startReplication("b8b2f10e", "123456");
-
     }
 
+    @SuppressLint("CheckResult")
     public void httpTest() {
 
-        //获取网络地址
-        String url = Untils.getStringFromRaw(getBaseApplication(), R.raw.base_http_url);
-       Retrofit retrofit = RetrofitServiceFactory.createRetrofitByBaseUrl(url);
+        //通过项目raw目录下的base_http_url文件，获取网络地址
+        //String url = Untils.getStringFromRaw(getBaseApplication(), R.raw.base_http_url);
+        Retrofit retrofit = RetrofitServiceFactory.createRetrofitByBaseUrl("http://www.wanandroid.com/tools/mockapi/8415/");
 
-       BlogService blogService = retrofit.create(BlogService.class);
-       Call<ResponseBody> call = blogService.getBlog();
+        Call<ResponseBody> call = retrofit.create(BlogService.class).getBlog();
 
-       call.enqueue(new Callback<ResponseBody>() {
-           @Override
-           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-               try {
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                try {
 
-                   Log.e("DOAING",response.body().string());
+                    Log.e("DOAING", Objects.requireNonNull(response.body()).string());
 
+                    Log.e("DOAING", response.toString());
 
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-           }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-           @Override
-           public void onFailure(Call<ResponseBody> call, Throwable t) {
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
 
-           }
-       });
+            }
+        });
 
     }
 

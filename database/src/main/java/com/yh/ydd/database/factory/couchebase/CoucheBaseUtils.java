@@ -27,7 +27,6 @@ import static android.content.ContentValues.TAG;
 
 public class CoucheBaseUtils extends AbDatabaseUtils {
 
-
     private URI uri;
 
     private Replicator replication;
@@ -100,15 +99,15 @@ public class CoucheBaseUtils extends AbDatabaseUtils {
 
             config.setReplicatorType(ReplicatorConfiguration.ReplicatorType.PUSH_AND_PULL);
 
-            config.setAuthenticator(new BasicAuthenticator(cl, psw));
+            config.setAuthenticator(new BasicAuthenticator("dong", "123456"));
 
             replication = new Replicator(config);
+
             replication.addChangeListener(new ReplicatorChangeListener() {
                 @Override
                 public void changed(ReplicatorChange change) {
 
                     myReplicatorChangeListener.changed(change);
-
 
                 }
             });
