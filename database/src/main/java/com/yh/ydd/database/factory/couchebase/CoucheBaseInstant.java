@@ -62,8 +62,10 @@ public class CoucheBaseInstant extends AbDataBase {
      */
     @Override
     public AbDatabaseUtils getDatabaseUtilsInstant() {
-        return  CoucheBaseUtils.getInstant(database);
+        return new CoucheBaseUtils(database);
     }
+
+
 
 
 }

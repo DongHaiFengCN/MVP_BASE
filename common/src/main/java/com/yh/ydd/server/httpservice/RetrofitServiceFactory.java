@@ -1,4 +1,4 @@
-package com.yh.ydd.base.httpservice;
+package com.yh.ydd.server.httpservice;
 
 import retrofit2.Retrofit;
 

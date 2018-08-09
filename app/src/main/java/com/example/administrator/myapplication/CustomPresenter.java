@@ -4,8 +4,8 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.util.Log;
 
-import com.yh.ydd.base.config.BasePresenter;
-import com.yh.ydd.base.config.ILifecyclePresenter;
+import com.yh.ydd.server.mvp.BasePresenter;
+import com.yh.ydd.server.mvp.ILifecyclePresenter;
 
 import org.jetbrains.annotations.NotNull;
 

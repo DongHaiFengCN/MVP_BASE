@@ -13,7 +13,7 @@ public abstract class AbDatabaseUtils {
     /**
      * 开启同步服务
      */
-    public abstract CoucheBaseUtils startReplication(String channel,String psw);
+    public abstract void startReplication(String sessionId);
 
     public abstract void closeDatabase();
 

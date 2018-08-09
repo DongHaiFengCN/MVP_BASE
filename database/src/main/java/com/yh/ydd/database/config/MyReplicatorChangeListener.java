@@ -1,5 +1,5 @@
 package com.yh.ydd.database.config;
 
 public interface MyReplicatorChangeListener {
-    void changed(Object change);
+    void changed(Object change) throws InterruptedException;
 }

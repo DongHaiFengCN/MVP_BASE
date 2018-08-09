@@ -1,4 +1,4 @@
-package com.yh.ydd.base.config;
+package com.yh.ydd.server.mvp;
 
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;

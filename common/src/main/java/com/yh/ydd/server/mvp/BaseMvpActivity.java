@@ -1,4 +1,4 @@
-package com.yh.ydd.base.config;
+package com.yh.ydd.server.mvp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

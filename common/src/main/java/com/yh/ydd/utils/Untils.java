@@ -49,6 +49,11 @@ public class Untils {
         return sb.toString();
     }
 
+    /**
+     * 获取菜品名称的首字母的小写
+     * @param name 菜品名称
+     * @return 返回菜品名称的首字母
+     */
     public static String getDishNameInitial(String name) {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -56,6 +61,7 @@ public class Untils {
             dict = new PinyinMapDict() {
                 @Override
                 public Map<String, String[]> mapping() {
+
                     Map<String, String[]> map = new HashMap<>();
                     map.put("腌", new String[]{"YAN"});
                     return map;

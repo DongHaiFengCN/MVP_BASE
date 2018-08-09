@@ -2,6 +2,7 @@ package com.yh.ydd.database.factory.couchebase;
 
 import android.support.annotation.NonNull;
 
+import com.couchbase.lite.Authenticator;
 import com.couchbase.lite.BasicAuthenticator;
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -12,6 +13,7 @@ import com.couchbase.lite.Replicator;
 import com.couchbase.lite.ReplicatorChange;
 import com.couchbase.lite.ReplicatorChangeListener;
 import com.couchbase.lite.ReplicatorConfiguration;
+import com.couchbase.lite.SessionAuthenticator;
 import com.couchbase.lite.URLEndpoint;
 import com.couchbase.lite.internal.support.Log;
 import com.yh.ydd.database.config.AbDatabaseUtils;
@@ -21,6 +23,7 @@ import com.yh.ydd.database.config.DatabaseURLCollector;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -31,13 +34,11 @@ public class CoucheBaseUtils extends AbDatabaseUtils {
 
     private Replicator replication;
 
-    private static CoucheBaseUtils coucheBaseUtils;
-
     private Database database;
 
     private MyReplicatorChangeListener myReplicatorChangeListener;
 
-    private CoucheBaseUtils(Database database) {
+    protected CoucheBaseUtils(Database database) {
         this.database = database;
     }
 
@@ -76,10 +77,14 @@ public class CoucheBaseUtils extends AbDatabaseUtils {
         this.myReplicatorChangeListener = (MyReplicatorChangeListener) o;
     }
 
+
+
     @Override
-    public CoucheBaseUtils startReplication(String cl,String psw) {
+    public void startReplication(String sessionId) {
 
 
+
+        //发起http请求
         if (uri == null) {
 
             try {
@@ -91,15 +96,13 @@ public class CoucheBaseUtils extends AbDatabaseUtils {
 
             ReplicatorConfiguration config = new ReplicatorConfiguration(database, endpoint);
 
-            List<String> channel = new ArrayList<>();
-
-            channel.add(cl);
-
-            config.setChannels(channel);
-
             config.setReplicatorType(ReplicatorConfiguration.ReplicatorType.PUSH_AND_PULL);
 
-            config.setAuthenticator(new BasicAuthenticator("dong", "123456"));
+            Authenticator authenticator;
+
+            authenticator = new SessionAuthenticator(sessionId);
+
+            config.setAuthenticator(authenticator);
 
             replication = new Replicator(config);
 
@@ -107,15 +110,17 @@ public class CoucheBaseUtils extends AbDatabaseUtils {
                 @Override
                 public void changed(ReplicatorChange change) {
 
-                    myReplicatorChangeListener.changed(change);
+                    try {
+                        myReplicatorChangeListener.changed(change);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             });
         }
 
         replication.start();
-
-        return coucheBaseUtils;
     }
 
     @Override
@@ -128,17 +133,5 @@ public class CoucheBaseUtils extends AbDatabaseUtils {
             }
         }
     }
-
-
-    public static CoucheBaseUtils getInstant(Database database) {
-
-        if (coucheBaseUtils == null) {
-
-            coucheBaseUtils = new CoucheBaseUtils(database);
-        }
-
-        return coucheBaseUtils;
-    }
-
 
 }

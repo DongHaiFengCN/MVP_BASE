@@ -1,4 +1,4 @@
-package com.yh.ydd.base.print;
+package com.yh.ydd.server.print;
 
 import android.annotation.SuppressLint;
 import android.app.IntentService;
@@ -45,17 +45,6 @@ public class PrintService extends IntentService {
 
         //这个方法允许启动多次，创建多个线程，所以可以进行耗时操作
         Log.e("DOAING","启动服务");
-  /*      int i = 30;
-        while(i>0){
-
-            Log.e("DOAING",(i--)+"");
-        }
-
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         return START_STICKY;
 
     }

@@ -2,8 +2,8 @@ package com.example.administrator.myapplication;
 
 import android.os.Bundle;
 
-import com.yh.ydd.base.config.BaseMvpActivity;
-import com.yh.ydd.base.config.BasePresenter;
+import com.yh.ydd.server.mvp.BaseMvpActivity;
+import com.yh.ydd.server.mvp.BasePresenter;
 
 /**
  * @author Administrator
